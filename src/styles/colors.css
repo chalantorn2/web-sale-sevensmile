@@ -1,0 +1,55 @@
+:root {
+  --primary: #0066cc;
+  --primary-light: #3399ff;
+  --primary-dark: #004c99;
+  --secondary: #00a1ff;
+  --secondary-light: #66c7ff;
+  --secondary-dark: #0081cc;
+  --white: #ffffff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --black: #000000;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--white);
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-dark);
+}
