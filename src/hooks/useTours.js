@@ -7,6 +7,8 @@ const useTours = (destination = null, limit = 10) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true; // เพิ่มการตรวจสอบ component ถูก unmount หรือไม่
+
     const fetchTours = async () => {
       try {
         setLoading(true);
@@ -25,19 +27,29 @@ const useTours = (destination = null, limit = 10) => {
 
         if (error) throw error;
 
-        setTours(data || []);
+        // ตรวจสอบว่า component ยังคงอยู่หรือไม่ก่อนอัพเดท state
+        if (isMounted) {
+          setTours(data || []);
+          setLoading(false);
+        }
       } catch (err) {
         console.error("Error fetching tours:", err);
-        setError(err.message);
 
-        // Fallback to sample data if database error
-        setTours(getSampleTours(destination, limit));
-      } finally {
-        setLoading(false);
+        if (isMounted) {
+          setError(err.message);
+          // Fallback to sample data if database error
+          setTours(getSampleTours(destination, limit));
+          setLoading(false);
+        }
       }
     };
 
     fetchTours();
+
+    // Cleanup function เพื่อป้องกัน memory leak
+    return () => {
+      isMounted = false;
+    };
   }, [destination, limit]);
 
   return { tours, loading, error };

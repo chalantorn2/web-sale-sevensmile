@@ -2,18 +2,23 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Hero = ({ images, title, subtitle, primaryButton, secondaryButton }) => {
-  console.log("Images received in Hero:", images);
+  // ลบ console.log ที่ไม่จำเป็นออก
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
-    if (images.length <= 1) return;
+    if (!images || images.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images]); // เปลี่ยนจาก images.length เป็น images เพื่อป้องกัน warning
+
+  // เพิ่มการตรวจสอบ images เพื่อป้องกัน error
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   return (
     <div className="relative h-screen min-h-[600px]">
