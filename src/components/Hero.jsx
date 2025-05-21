@@ -1,38 +1,26 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Hero = ({ images, title, subtitle, primaryButton, secondaryButton }) => {
-  // ลบ console.log ที่ไม่จำเป็นออก
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    if (!images || images.length <= 1) return;
-
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [images]); // เปลี่ยนจาก images.length เป็น images เพื่อป้องกัน warning
-
-  // เพิ่มการตรวจสอบ images เพื่อป้องกัน error
-  if (!images || images.length === 0) {
-    return null;
-  }
-
+const Hero = ({
+  image,
+  title,
+  subtitle,
+  primaryButton,
+  secondaryButton,
+  showAdvertBanner = false,
+}) => {
   return (
-    <div className="relative h-screen min-h-[600px]">
-      {/* Background Images */}
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className="absolute inset-0 w-full h-full bg-center bg-cover transition-opacity duration-1000"
-          style={{
-            backgroundImage: `url(${image})`,
-            opacity: index === currentImage ? 1 : 0,
-          }}
-        />
-      ))}
+    <div
+      className={`relative ${
+        showAdvertBanner ? "h-[75vh]" : "h-screen"
+      } min-h-[500px]`}
+    >
+      {/* Background Image - Single image instead of slider */}
+      <div
+        className="absolute inset-0 w-full h-full bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${image})`,
+        }}
+      />
 
       {/* Overlay */}
       <div className="absolute inset-0 modal-backdrop"></div>
@@ -67,21 +55,30 @@ const Hero = ({ images, title, subtitle, primaryButton, secondaryButton }) => {
         </div>
       </div>
 
-      {/* Navigation Dots */}
-      {images.length > 1 && (
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-10">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImage(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentImage ? "bg-primary" : "bg-white bg-opacity-50"
-              }`}
-              aria-label={`Slide ${index + 1}`}
-            />
-          ))}
+      {/* Advertisement Banner Area - Only shown when showAdvertBanner is true */}
+      {/* {showAdvertBanner && (
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent h-0/4 z-10">
+          <div className="container mx-auto px-4 h-full flex items-center">
+            <div className="w-full text-center">
+              <div className="bg-white/90 rounded-lg p-4 shadow-lg mx-auto max-w-5xl">
+                <h3 className="text-xl font-semibold text-primary mb-2">
+                  โปรโมชันพิเศษ
+                </h3>
+                <p className="text-gray-800">
+                  จองทัวร์ภายในวันนี้ รับส่วนลดทันที 15% พร้อมฟรี!
+                  รถรับ-ส่งสนามบิน
+                </p>
+                <Link
+                  to="/contact"
+                  className="inline-block mt-3 bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-dark transition-colors"
+                >
+                  จองเลย
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
