@@ -121,7 +121,7 @@ const TourBooking = ({ tour }) => {
         </div>
 
         {/* Booking Note */}
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
+        {/* <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
           <div className="flex items-start">
             <FaClock className="text-yellow-600 mr-2 mt-1" />
             <div>
@@ -133,7 +133,7 @@ const TourBooking = ({ tour }) => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Contact Information */}
@@ -204,8 +204,8 @@ const TourBooking = ({ tour }) => {
 
         {/* Service Hours */}
         <div className="mt-4 text-center text-sm text-gray-600">
-          <p>เวลาทำการ: จันทร์-เสาร์ 09:00-18:00 น.</p>
-          <p>อาทิตย์ 10:00-16:00 น.</p>
+          <p>เวลาทำการ: จันทร์-เสาร์ 08:00-17:00 น.</p>
+          {/* <p>อาทิตย์ 10:00-16:00 น.</p> */}
         </div>
       </div>
 
