@@ -10,81 +10,91 @@ import {
 } from "react-icons/fa";
 
 const FeaturedTours = () => {
-  // Mock data for tours based on your requirements
+  // Updated mock data with correct links to TourDetail pages
   const mockTours = [
     {
       id: 1,
       title: "ทัวร์ 4 เกาะ - เรือสปีดโบ๊ท",
-      image: "/images/tours/four-islands-krabi.jpg", // Path for the image
-      imageName: "four-islands-krabi.jpg", // File name
+      image: "/images/tours/four-islands-krabi.jpg",
+      imageName: "four-islands-krabi.jpg",
       location: "กระบี่",
+      destination: "krabi",
+      slug: "four-islands-speedboat",
       price: 1000,
       oldPrice: 1399,
       duration: "1 วัน",
       rating: 4.8,
       description:
         "สัมผัสความงดงามของ 4 เกาะกระบี่ ทะเลใส หาดทรายขาว ด้วยเรือสปีดโบ๊ทสุดเร็ว",
-      link: "/krabi/four-islands",
+      link: "/tours/krabi/four-islands-speedboat",
       featured: true,
     },
     {
       id: 2,
       title: "ทัวร์เกาะพีพี - เรือสปีดโบ๊ท",
-      image: "/images/tours/phi-phi-speed-boat.jpg", // Path for the image
-      imageName: "phi-phi-speed-boat.jpg", // File name
+      image: "/images/tours/phi-phi-speed-boat.jpg",
+      imageName: "phi-phi-speed-boat.jpg",
       location: "กระบี่",
+      destination: "krabi",
+      slug: "phi-phi-speedboat",
       price: 1500,
       oldPrice: 1899,
       duration: "1 วัน",
       rating: 4.9,
       description:
         "เที่ยวเกาะพีพี อ่าวมาหยา เกาะไผ่ ด้วยเรือสปีดโบ๊ทที่ทันสมัยและปลอดภัย",
-      link: "/krabi/phi-phi-speedboat",
+      link: "/tours/krabi/phi-phi-speedboat",
       featured: true,
     },
     {
       id: 3,
       title: "ทัวร์ 7 เกาะ ชมพระอาทิตย์ตก + BBQ",
-      image: "/images/tours/sunset-bbq-tour.jpg", // Path for the image
-      imageName: "sunset-bbq-tour.jpg", // File name
+      image: "/images/tours/sunset-bbq-tour.jpg",
+      imageName: "sunset-bbq-tour.jpg",
       location: "กระบี่",
+      destination: "krabi",
+      slug: "sunset-bbq-tour",
       price: 1600,
       oldPrice: 1999,
       duration: "1 วัน",
       rating: 4.9,
       description:
         "ชมพระอาทิตย์ตกสุดโรแมนติกพร้อมบาร์บีคิวบนเรือ สัมผัสความงามของ 7 เกาะกระบี่",
-      link: "/krabi/sunset-bbq-tour",
+      link: "/tours/krabi/sunset-bbq-tour",
       featured: true,
     },
     {
       id: 4,
       title: "ทัวร์ล่องแก่ง",
-      image: "/images/tours/white-water-rafting.jpg", // Path for the image
-      imageName: "white-water-rafting.jpg", // File name
+      image: "/images/tours/white-water-rafting.jpg",
+      imageName: "white-water-rafting.jpg",
       location: "พังงา",
+      destination: "phang-nga",
+      slug: "white-water-rafting",
       price: 1500,
       oldPrice: 1899,
       duration: "1 วัน",
       rating: 4.7,
       description:
         "ผจญภัยกับการล่องแก่งสุดมันส์ในจังหวัดพังงา พร้อมกิจกรรมสนุกๆ มากมาย",
-      link: "/phang-nga/white-water-rafting",
+      link: "/tours/phang-nga/white-water-rafting",
       featured: true,
     },
     {
       id: 5,
       title: "ทัวร์เกาะเจมส์บอนด์ - เรือสปีดโบ๊ท",
-      image: "/images/tours/james-bond-island.jpg", // Path for the image
-      imageName: "james-bond-island.jpg", // File name
+      image: "/images/tours/james-bond-island.jpg",
+      imageName: "james-bond-island.jpg",
       location: "พังงา",
+      destination: "phang-nga",
+      slug: "james-bond-island",
       price: 1600,
       oldPrice: 2099,
       duration: "1 วัน",
       rating: 4.8,
       description:
         "สัมผัสความงดงามของเกาะเจมส์บอนด์ เขาตะปู ถ้ำลอด และเกาะปันหยี",
-      link: "/phang-nga/james-bond-island",
+      link: "/tours/phang-nga/james-bond-island",
       featured: true,
     },
   ];
@@ -260,7 +270,7 @@ const FeaturedTours = () => {
         {/* View All Button */}
         <div className="text-center mt-10">
           <Link
-            to="/tours"
+            to="/krabi"
             className="inline-block px-8 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors text-lg"
           >
             ดูทัวร์ทั้งหมด
