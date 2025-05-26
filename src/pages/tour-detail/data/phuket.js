@@ -1,0 +1,27 @@
+export const phuketTours = {
+  "james-bond-phuket": {
+    id: "james-bond-phuket",
+    title: "ทัวร์เกาะเจมส์บอนด์ จากภูเก็ต",
+    slug: "james-bond-phuket",
+    destination: "phuket",
+    location: "ภูเก็ต",
+    price: 1490,
+    oldPrice: 1790,
+    duration: "1 วัน",
+    rating: 4.8,
+    reviewCount: 400,
+    heroImage: "/images/tours/james-bond-phuket.jpg",
+    description:
+      "เยือนเกาะเจมส์บอนด์ สถานที่ถ่ายทำภาพยนตร์ James Bond พร้อมสำรวจถ้ำพุงยอดและเกาะอื่นๆ ในอ่าวพังงา",
+    highlights: [],
+    itinerary: [],
+    included: [],
+    excluded: [],
+    whatToBring: [],
+    menuSamples: {},
+    gallery: [],
+    reviews: [],
+    importantNotes: [],
+    faqs: [],
+  },
+};

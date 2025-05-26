@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { FaStar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { krabiTours } from "../data/krabi";
+import { phuketTours } from "../data/phuket";
+import { phangNgaTours } from "../data/phang_nga";
 
 const RelatedTours = ({ currentTour }) => {
   // Guard clause - return null if currentTour is not available
@@ -7,74 +10,24 @@ const RelatedTours = ({ currentTour }) => {
     return null;
   }
 
-  // Mock data for related tours - ในการใช้งานจริงจะดึงจากฐานข้อมูล
-  const allRelatedTours = [
-    {
-      id: "phi-phi-speedboat",
-      title: "ทัวร์เกาะพีพี อ่าวมาหยา เรือสปีดโบ๊ท",
-      slug: "phi-phi-speedboat",
-      destination: "krabi",
-      location: "กระบี่",
-      price: 1500,
-      oldPrice: 1899,
-      duration: "1 วัน",
-      rating: 4.9,
-      image: "/images/tours/phi-phi-speed-boat.jpg",
-      link: "/tours/krabi/phi-phi-speedboat",
-    },
-    {
-      id: "sunset-bbq-tour",
-      title: "ทัวร์ 7 เกาะ ชมพระอาทิตย์ตก + BBQ",
-      slug: "sunset-bbq-tour",
-      destination: "krabi",
-      location: "กระบี่",
-      price: 1600,
-      oldPrice: 1999,
-      duration: "1 วัน",
-      rating: 4.9,
-      image: "/images/tours/sunset-bbq-tour.jpg",
-      link: "/tours/krabi/sunset-bbq-tour",
-    },
-    {
-      id: "hong-island-tour",
-      title: "ทัวร์เกาะห้อง เรือหางยาว",
-      slug: "hong-island-tour",
-      destination: "krabi",
-      location: "กระบี่",
-      price: 1390,
-      oldPrice: null,
-      duration: "1 วัน",
-      rating: 4.6,
-      image: "/images/tours/hong-island.jpg",
-      link: "/tours/krabi/hong-island",
-    },
-    {
-      id: "james-bond-phuket",
-      title: "ทัวร์เกาะเจมส์บอนด์ จากภูเก็ต",
-      slug: "james-bond-phuket",
-      destination: "phuket",
-      location: "ภูเก็ต",
-      price: 1490,
-      oldPrice: 1790,
-      duration: "1 วัน",
-      rating: 4.8,
-      image: "/images/tours/james-bond-phuket.jpg",
-      link: "/tours/phuket/james-bond-island",
-    },
-    {
-      id: "similan-island",
-      title: "ทัวร์เกาะสิมิลัน One Day Trip",
-      slug: "similan-island",
-      destination: "phang-nga",
-      location: "พังงา",
-      price: 3290,
-      oldPrice: 3790,
-      duration: "1 วัน",
-      rating: 4.9,
-      image: "/images/tours/similan-island.jpg",
-      link: "/tours/phang-nga/similan-island",
-    },
-  ];
+  // รวมข้อมูลทัวร์จากทุกจังหวัด
+  const allRelatedTours = Object.values({
+    ...krabiTours,
+    ...phuketTours,
+    ...phangNgaTours,
+  }).map((tour) => ({
+    id: tour.id,
+    title: tour.title,
+    slug: tour.slug,
+    destination: tour.destination,
+    location: tour.location,
+    price: tour.price,
+    oldPrice: tour.oldPrice,
+    duration: tour.duration,
+    rating: tour.rating,
+    image: tour.heroImage,
+    link: `/tours/${tour.destination}/${tour.slug}`,
+  }));
 
   // Filter out current tour and get related tours
   const relatedTours = allRelatedTours

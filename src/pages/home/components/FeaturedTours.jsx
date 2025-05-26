@@ -10,7 +10,6 @@ import {
 } from "react-icons/fa";
 
 const FeaturedTours = () => {
-  // Updated mock data with correct links to TourDetail pages
   const mockTours = [
     {
       id: 1,
@@ -70,14 +69,14 @@ const FeaturedTours = () => {
       imageName: "white-water-rafting.jpg",
       location: "พังงา",
       destination: "phang-nga",
-      slug: "white-water-rafting",
+      slug: "rafting-adventure",
       price: 1500,
       oldPrice: 1899,
       duration: "1 วัน",
       rating: 4.7,
       description:
         "ผจญภัยกับการล่องแก่งสุดมันส์ในจังหวัดพังงา พร้อมกิจกรรมสนุกๆ มากมาย",
-      link: "/tours/phang-nga/white-water-rafting",
+      link: "/tours/phang-nga/rafting-adventure",
       featured: true,
     },
     {

@@ -15,7 +15,7 @@ const TourHero = ({ tour }) => {
     : 0;
 
   return (
-    <div className="relative h-[60vh] min-h-[400px] overflow-hidden pb-5">
+    <div className="relative h-[60vh] min-h-[400px] overflow-hidden mb-8 pb-5">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -26,7 +26,7 @@ const TourHero = ({ tour }) => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-end">
+      <div className="relative z-10 h-full flex items-end ">
         <div className="container mx-auto px-4 pb-8">
           <div className="max-w-4xl text-white">
             {/* Breadcrumb */}

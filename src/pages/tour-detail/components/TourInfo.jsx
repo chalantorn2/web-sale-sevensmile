@@ -20,7 +20,7 @@ const TourInfo = ({ tour }) => {
   }
 
   return (
-    <section id="tour-info" className="mb-12 mt-5">
+    <section id="tour-info" className="mb-12 ">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           รายละเอียดทัวร์

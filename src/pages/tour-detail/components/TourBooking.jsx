@@ -2,13 +2,11 @@ import {
   FaPhone,
   FaLine,
   FaEnvelope,
-  FaWhatsapp,
   FaCalculator,
   FaClock,
 } from "react-icons/fa";
 
 const TourBooking = ({ tour }) => {
-  // Guard clause - return loading state if tour is not available
   if (!tour) {
     return (
       <div className="sticky top-24">
@@ -24,7 +22,6 @@ const TourBooking = ({ tour }) => {
     );
   }
 
-  // Calculate total price for different group sizes
   const groupSizes = [
     { people: 1, label: "1 ท่าน" },
     { people: 2, label: "2 ท่าน" },
@@ -77,8 +74,7 @@ const TourBooking = ({ tour }) => {
   ];
 
   return (
-    <div className="sticky top-24 space-y-6 mt-5">
-      {/* Price Summary */}
+    <div className="sticky top-24 space-y-6 ">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="mb-4">
           <h3 className="text-xl font-bold text-gray-800 mb-2">ราคาทัวร์</h3>
@@ -102,7 +98,6 @@ const TourBooking = ({ tour }) => {
           )}
         </div>
 
-        {/* Price Calculator */}
         <div className="mb-4">
           <h4 className="font-semibold text-gray-700 mb-3 flex items-center">
             <FaCalculator className="mr-2" />
@@ -119,27 +114,10 @@ const TourBooking = ({ tour }) => {
             ))}
           </div>
         </div>
-
-        {/* Booking Note */}
-        {/* <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
-          <div className="flex items-start">
-            <FaClock className="text-yellow-600 mr-2 mt-1" />
-            <div>
-              <p className="text-sm text-yellow-800 font-medium">
-                การจองและชำระเงิน
-              </p>
-              <p className="text-xs text-yellow-700 mt-1">
-                จองล่วงหน้าอย่างน้อย 1 วัน • ชำระเงินมัดจำ 50%
-              </p>
-            </div>
-          </div>
-        </div> */}
       </div>
 
-      {/* Contact Information */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h3 className="text-xl font-bold text-gray-800 mb-4">ติดต่อจองทัวร์</h3>
-
         <div className="space-y-4">
           {contactMethods.map((contact) => (
             <div
@@ -173,7 +151,6 @@ const TourBooking = ({ tour }) => {
           ))}
         </div>
 
-        {/* Quick Actions */}
         <div className="mt-6 space-y-3">
           <a
             href="tel:0952655516"
@@ -182,7 +159,6 @@ const TourBooking = ({ tour }) => {
             <FaPhone className="mr-2" />
             โทรจองทันที
           </a>
-
           <a
             href="https://line.me/R/ti/p/@sevensmile"
             target="_blank"
@@ -192,9 +168,8 @@ const TourBooking = ({ tour }) => {
             <FaLine className="mr-2" />
             แชท Line
           </a>
-
           <a
-            href="mailto:sevensmiletour@gmail.com?subject=สอบถามทัวร์: ทัวร์ 4 เกาะกระบี่&body=สวัสดีครับ/ค่ะ ต้องการสอบถามรายละเอียดทัวร์ 4 เกาะกระบี่"
+            href={`mailto:sevensmiletour@gmail.com?subject=สอบถามทัวร์: ${tour.title}`}
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium text-center flex items-center justify-center transition-colors"
           >
             <FaEnvelope className="mr-2" />
@@ -202,14 +177,11 @@ const TourBooking = ({ tour }) => {
           </a>
         </div>
 
-        {/* Service Hours */}
         <div className="mt-4 text-center text-sm text-gray-600">
           <p>เวลาทำการ: จันทร์-เสาร์ 08:00-17:00 น.</p>
-          {/* <p>อาทิตย์ 10:00-16:00 น.</p> */}
         </div>
       </div>
 
-      {/* Trust Indicators */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h4 className="font-semibold text-gray-800 mb-3">ทำไมต้องเลือกเรา?</h4>
         <ul className="space-y-2 text-sm text-gray-600">
