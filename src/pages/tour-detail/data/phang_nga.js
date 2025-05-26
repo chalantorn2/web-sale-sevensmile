@@ -2,7 +2,7 @@ export const phangNgaTours = {
   // ทัวร์เดิม (เช่น similan-island) คงอยู่ ไม่ระบุซ้ำเพื่อประหยัดพื้นที่
   "rafting-adventure": {
     id: "rafting-phang-nga",
-    title: "ทัวร์ล่องแก่ง 5 กิโลเมตร",
+    title: "ทัวร์ล่องแก่ง",
     slug: "rafting-adventure",
     destination: "phang-nga",
     location: "พังงา",
