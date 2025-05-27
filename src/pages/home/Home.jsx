@@ -26,9 +26,9 @@ const Home = () => {
       description:
         "บริการทัวร์ในประเทศไทย ทัวร์ต่างประเทศ และตั๋วเครื่องบินราคาพิเศษ โดยทีมงานมืออาชีพ",
       sameAs: [
-        "https://www.facebook.com/sevensmiletravel",
+        "https://www.facebook.com/7smiletour",
         "https://www.instagram.com/sevensmiletour",
-        "https://line.me/sevensmile",
+        "https://lin.ee/wq74q5i",
       ],
       address: {
         "@type": "PostalAddress",

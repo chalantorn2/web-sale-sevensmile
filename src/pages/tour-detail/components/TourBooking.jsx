@@ -60,7 +60,7 @@ const TourBooking = ({ tour }) => {
       icon: <FaLine className="text-green-500" />,
       label: "Line Official",
       value: "@sevensmile",
-      href: "https://line.me/R/ti/p/@sevensmile",
+      href: "https://lin.ee/wq74q5i",
       description: "แชทสอบถามได้ตลอดเวลา",
     },
     {
@@ -160,7 +160,7 @@ const TourBooking = ({ tour }) => {
             โทรจองทันที
           </a>
           <a
-            href="https://line.me/R/ti/p/@sevensmile"
+            href="https://lin.ee/wq74q5i"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg font-medium text-center flex items-center justify-center transition-colors"

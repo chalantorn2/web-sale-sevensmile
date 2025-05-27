@@ -144,15 +144,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-2 flex-shrink-0" />
-                <p>83 ถ.พังงา ต.ตลาดใหญ่ อ.เมือง จ.ภูเก็ต 83000</p>
+                <p>33 ถ.มหาราช ซอย 8 ต.ปากน้ำ อ.เมือง จ.กระบี่ 81000</p>
               </div>
               <div className="flex items-center">
                 <FaPhoneAlt className="mr-2 flex-shrink-0" />
-                <p>076-123456, 081-1234567</p>
+                <p>095-265-5516, 083-969-1300</p>
               </div>
               <div className="flex items-center">
                 <FaEnvelope className="mr-2 flex-shrink-0" />
-                <p>info@sevensmile.com</p>
+                <p>sevensmiletour@hotmail.com</p>
               </div>
               <div className="pt-2">
                 <a

@@ -35,7 +35,7 @@ const Contact = () => {
         longitude: "98.3883034",
       },
       telephone: "+66-76-123456",
-      email: "info@sevensmile.com",
+      email: "sevensmiletour@hotmail.com",
       openingHours: "Mo-Sa 09:00-18:00",
     });
   }, []);
@@ -61,7 +61,7 @@ const Contact = () => {
           <h2 className="text-2xl font-semibold mb-6">แผนที่</h2>
           <div className="rounded-lg overflow-hidden shadow-lg h-96">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.0371122935216!2d98.38611731481452!3d7.880491194324458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTInNDkuOCJOIDk4wrAyMycxNy45IkU!5e0!3m2!1sen!2sth!4v1620120000000!5m2!1sen!2sth"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.368502080951!2d98.91602809999999!3d8.063843100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x305195003902b487%3A0xf903773a543dde98!2sSeven%20Smile%20Tour%20And%20Ticket!5e0!3m2!1sth!2sth!4v1748332554675!5m2!1sth!2sth"
               width="100%"
               height="100%"
               style={{ border: 0 }}

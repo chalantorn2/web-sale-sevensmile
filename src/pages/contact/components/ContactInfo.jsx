@@ -20,7 +20,7 @@ const ContactInfo = () => {
           </div>
           <div>
             <h3 className="text-lg font-medium mb-1">ที่อยู่</h3>
-            <p>83 ถ.พังงา ต.ตลาดใหญ่ อ.เมือง จ.ภูเก็ต 83000</p>
+            <p>33 ถ.มหาราช ซอย 8 ต.ปากน้ำ อ.เมือง จ.กระบี่ 81000</p>
             <a
               href="https://maps.app.goo.gl/Ydw5smr3pd1fsyXF6"
               target="_blank"
@@ -38,9 +38,9 @@ const ContactInfo = () => {
           </div>
           <div>
             <h3 className="text-lg font-medium mb-1">โทรศัพท์</h3>
-            <p>076-123456, 081-1234567</p>
+            <p>095-265-5516, 083-969-1300</p>
             <p className="text-gray-600 text-sm mt-1">
-              สามารถติดต่อผ่าน Line ได้ที่เบอร์ 081-1234567
+              สามารถติดต่อผ่าน Line ได้ที่เบอร์ 095-265-5516
             </p>
           </div>
         </div>
@@ -52,10 +52,10 @@ const ContactInfo = () => {
           <div>
             <h3 className="text-lg font-medium mb-1">อีเมล</h3>
             <a
-              href="mailto:info@sevensmile.com"
+              href="mailto:sevensmiletour@hotmail.com"
               className="text-primary hover:text-primary-dark transition-colors"
             >
-              info@sevensmile.com
+              sevensmiletour@hotmail.com
             </a>
           </div>
         </div>
@@ -66,7 +66,7 @@ const ContactInfo = () => {
           </div>
           <div>
             <h3 className="text-lg font-medium mb-1">เวลาทำการ</h3>
-            <p>จันทร์ - เสาร์: 09:00 - 18:00 น.</p>
+            <p>จันทร์ - เสาร์: 08:00 - 21:00 น.</p>
             <p>วันอาทิตย์และวันหยุดนักขัตฤกษ์: 10:00 - 16:00 น.</p>
           </div>
         </div>
