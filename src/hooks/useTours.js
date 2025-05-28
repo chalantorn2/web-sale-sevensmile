@@ -1,35 +1,71 @@
 import { useState, useEffect } from "react";
 import supabase from "../utils/supabase";
 
+/**
+ * Hook สำหรับดึงรายการทัวร์จากฐานข้อมูล
+ * รองรับทั้งข้อมูลใหม่และ fallback ข้อมูลเก่า
+ */
 const useTours = (destination = null, limit = 10) => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let isMounted = true; // เพิ่มการตรวจสอบ component ถูก unmount หรือไม่
+    let isMounted = true;
 
     const fetchTours = async () => {
       try {
         setLoading(true);
+        setError(null);
 
         let query = supabase
           .from("tours")
-          .select("*")
-          .order("created_at", { ascending: false })
+          .select(
+            `
+            id,
+            title,
+            hero_image,
+            location,
+            destination,
+            base_price,
+            old_price,
+            duration,
+            rating,
+            slug,
+            is_featured,
+            review_count
+          `
+          )
+          .order("sort_order", { ascending: true })
           .limit(limit);
 
         if (destination) {
           query = query.eq("destination", destination);
         }
 
-        const { data, error } = await query;
+        const { data, error: fetchError } = await query;
 
-        if (error) throw error;
+        if (fetchError) throw fetchError;
 
-        // ตรวจสอบว่า component ยังคงอยู่หรือไม่ก่อนอัพเดท state
         if (isMounted) {
-          setTours(data || []);
+          // แปลงข้อมูลให้ตรงกับ format เดิม
+          const formattedTours =
+            data?.map((tour) => ({
+              id: tour.id,
+              title: tour.title,
+              image: tour.hero_image,
+              location: tour.location,
+              destination: tour.destination,
+              price: tour.base_price,
+              oldPrice: tour.old_price,
+              duration: tour.duration,
+              rating: tour.rating,
+              link: `/tours/${tour.destination}/${tour.slug}`,
+              featured: tour.is_featured,
+              reviewCount: tour.review_count,
+            })) || [];
+
+          setTours(formattedTours);
           setLoading(false);
         }
       } catch (err) {
@@ -46,7 +82,6 @@ const useTours = (destination = null, limit = 10) => {
 
     fetchTours();
 
-    // Cleanup function เพื่อป้องกัน memory leak
     return () => {
       isMounted = false;
     };
@@ -55,7 +90,7 @@ const useTours = (destination = null, limit = 10) => {
   return { tours, loading, error };
 };
 
-// Sample data as fallback in case database is not connected
+// Sample data as fallback (เดิม)
 const getSampleTours = (destination = null, limit = 10) => {
   const allTours = [
     {
