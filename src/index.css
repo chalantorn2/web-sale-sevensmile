@@ -4,3 +4,13 @@ html,
 body {
   font-family: "Prompt", sans-serif;
 }
+
+.modal-backdrop-g {
+  position: fixed;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 60, 0.7) 0%,
+    rgba(0, 120, 120, 0.4) 100%
+  );
+  backdrop-filter: blur(7px);
+}

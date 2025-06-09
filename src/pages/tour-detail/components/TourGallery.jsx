@@ -118,7 +118,7 @@ const TourGallery = ({ gallery }) => {
         {/* Lightbox */}
         {selectedImage && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 modal-backdrop-g z-50 flex items-center justify-center p-4"
             onClick={closeLightbox}
             onKeyDown={handleKeyPress}
             tabIndex={0}
