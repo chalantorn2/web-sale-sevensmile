@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Hero from "../../components/Hero";
 import KrabiPackages from "./components/KrabiPackages";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./Krabi.css";
 
 const Krabi = () => {
   useEffect(() => {

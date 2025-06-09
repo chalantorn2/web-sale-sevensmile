@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import ContactForm from "../../components/ContactForm";
 import ContactInfo from "./components/ContactInfo";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./Contact.css";
 
 const Contact = () => {
   useEffect(() => {

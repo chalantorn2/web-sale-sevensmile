@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Hero from "../../components/Hero";
 import PhuketPackages from "./components/PhuketPackages";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./Phuket.css";
 
 const Phuket = () => {
   useEffect(() => {

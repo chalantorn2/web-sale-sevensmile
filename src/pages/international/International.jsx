@@ -3,7 +3,6 @@ import Hero from "../../components/Hero";
 import InternationalPackages from "./components/InternationalPackages";
 import InternationalHighlights from "./components/InternationalHighlights";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./International.css";
 
 const International = () => {
   useEffect(() => {

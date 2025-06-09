@@ -4,7 +4,7 @@ import FeaturedTours from "./components/FeaturedTours";
 import Testimonials from "./components/Testimonials";
 import Services from "./components/Services";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./Home.css";
+
 import heroImage from "../../assets/images/hero-bg.jpg"; // Make sure the image exists in this path
 
 const Home = () => {

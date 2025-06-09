@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Hero from "../../components/Hero";
 import PhangNgaPackages from "./components/PhangNgaPackages";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./PhangNga.css";
 
 const PhangNga = () => {
   useEffect(() => {

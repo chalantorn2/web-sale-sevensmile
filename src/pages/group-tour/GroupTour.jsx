@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Hero from "../../components/Hero";
 import GroupTourForm from "./components/GroupTourForm";
 import { generateMetaTags, generateStructuredData } from "../../utils/seo";
-import "./GroupTour.css";
 
 const GroupTour = () => {
   useEffect(() => {
