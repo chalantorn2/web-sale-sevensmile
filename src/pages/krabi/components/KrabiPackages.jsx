@@ -2,6 +2,7 @@ import useTours from "../../../hooks/useTours";
 import TourCard from "../../../components/TourCard";
 import { useState } from "react";
 import { FaFilter, FaSearch, FaStar, FaFire } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const KrabiPackages = () => {
   const { tours, loading, error } = useTours("krabi");
@@ -228,7 +229,10 @@ const KrabiPackages = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedTours.map((tour) => (
-              <div key={tour.id} className="relative">
+              <Link
+                to={tour.link}
+                className="block rounded-lg overflow-hidden bg-white shadow-custom hover-scale hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
                 {/* Enhanced Tour Card */}
                 <div className="rounded-lg overflow-hidden bg-white shadow-custom hover-scale">
                   {/* Tour Image */}
@@ -300,17 +304,9 @@ const KrabiPackages = () => {
                         <span className="text-gray-600 text-sm">/ท่าน</span>
                       </div>
                     </div>
-
-                    {/* CTA Button */}
-                    <a
-                      href={tour.link}
-                      className="block w-full bg-primary text-white text-center py-2 rounded hover:bg-primary-dark transition-colors font-medium"
-                    >
-                      ดูรายละเอียดและจอง
-                    </a>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

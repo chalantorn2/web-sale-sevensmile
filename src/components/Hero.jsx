@@ -8,6 +8,18 @@ const Hero = ({
   secondaryButton,
   showAdvertBanner = false,
 }) => {
+  // Function สำหรับ smooth scroll
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId.replace("#", ""));
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <div
       className={`relative ${
@@ -34,51 +46,42 @@ const Hero = ({
           <p className="text-xl md:text-2xl mb-8">{subtitle}</p>
 
           <div className="flex flex-wrap gap-4">
-            {primaryButton && (
-              <Link
-                to={primaryButton.link}
-                className="bg-primary text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-primary-dark transition-colors"
-              >
-                {primaryButton.text}
-              </Link>
-            )}
+            {primaryButton &&
+              (primaryButton.link.startsWith("#") ? (
+                <button
+                  onClick={(e) => handleSmoothScroll(e, primaryButton.link)}
+                  className="cursor-pointer bg-primary text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-primary-dark transition-colors"
+                >
+                  {primaryButton.text}
+                </button>
+              ) : (
+                <Link
+                  to={primaryButton.link}
+                  className="inline-block bg-primary text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-primary-dark transition-colors"
+                >
+                  {primaryButton.text}
+                </Link>
+              ))}
 
-            {secondaryButton && (
-              <Link
-                to={secondaryButton.link}
-                className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-white hover:text-primary transition-colors"
-              >
-                {secondaryButton.text}
-              </Link>
-            )}
+            {secondaryButton &&
+              (secondaryButton.link.startsWith("#") ? (
+                <button
+                  onClick={(e) => handleSmoothScroll(e, secondaryButton.link)}
+                  className="cursor-pointer bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-white hover:text-black transition-colors"
+                >
+                  {secondaryButton.text}
+                </button>
+              ) : (
+                <Link
+                  to={secondaryButton.link}
+                  className="inline-block bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-white hover:text-primary transition-colors"
+                >
+                  {secondaryButton.text}
+                </Link>
+              ))}
           </div>
         </div>
       </div>
-
-      {/* Advertisement Banner Area - Only shown when showAdvertBanner is true */}
-      {/* {showAdvertBanner && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent h-0/4 z-10">
-          <div className="container mx-auto px-4 h-full flex items-center">
-            <div className="w-full text-center">
-              <div className="bg-white/90 rounded-lg p-4 shadow-lg mx-auto max-w-5xl">
-                <h3 className="text-xl font-semibold text-primary mb-2">
-                  โปรโมชันพิเศษ
-                </h3>
-                <p className="text-gray-800">
-                  จองทัวร์ภายในวันนี้ รับส่วนลดทันที 15% พร้อมฟรี!
-                  รถรับ-ส่งสนามบิน
-                </p>
-                <Link
-                  to="/contact"
-                  className="inline-block mt-3 bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-dark transition-colors"
-                >
-                  จองเลย
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

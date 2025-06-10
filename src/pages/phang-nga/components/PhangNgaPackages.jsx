@@ -2,6 +2,7 @@ import useTours from "../../../hooks/useTours";
 import TourCard from "../../../components/TourCard";
 import { useState } from "react";
 import { FaFilter, FaSearch, FaStar, FaFire } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const PhangNgaPackages = () => {
   const { tours, loading, error } = useTours("phang-nga");
@@ -239,7 +240,10 @@ const PhangNgaPackages = () => {
             {sortedTours.map((tour) => (
               <div key={tour.id} className="relative">
                 {/* Enhanced Tour Card */}
-                <div className="rounded-lg overflow-hidden bg-white shadow-custom hover-scale">
+                <Link
+                  to={tour.link}
+                  className="block rounded-lg overflow-hidden bg-white shadow-custom hover-scale hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                >
                   {/* Tour Image */}
                   <div className="relative">
                     <img
@@ -309,16 +313,8 @@ const PhangNgaPackages = () => {
                         <span className="text-gray-600 text-sm">/ท่าน</span>
                       </div>
                     </div>
-
-                    {/* CTA Button */}
-                    <a
-                      href={tour.link}
-                      className="block w-full bg-primary text-white text-center py-2 rounded hover:bg-primary-dark transition-colors font-medium"
-                    >
-                      ดูรายละเอียดและจอง
-                    </a>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
