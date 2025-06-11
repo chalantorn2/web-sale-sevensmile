@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <!-- ========================================= -->
+  <!-- HOMEPAGE - สำคัญที่สุด -->
+  <!-- ========================================= -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/hero-bg.jpg</image:loc>
+      <image:caption>Seven Smile Tour And Ticket - บริการทัวร์ครบวงจร</image:caption>
+      <image:title>Seven Smile Tour Homepage</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/logo.png</image:loc>
+      <image:caption>Seven Smile Tour Logo</image:caption>
+      <image:title>Seven Smile Tour And Ticket</image:title>
+    </image:image>
+  </url>
+
+  <!-- ========================================= -->
+  <!-- MAIN DESTINATION PAGES - สำคัญมาก -->
+  <!-- ========================================= -->
+  
+  <!-- ทัวร์กระบี่ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/krabi</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/krabi/banner1.jpg</image:loc>
+      <image:caption>ทัวร์กระบี่ 4 เกาะ เกาะพีพี เกาะห้อง</image:caption>
+      <image:title>ทัวร์กระบี่</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์ภูเก็ต -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/phuket</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phuket/banner1.jpg</image:loc>
+      <image:caption>ทัวร์ภูเก็ต เกาะพีพี เจมส์บอนด์ เกาะราชา</image:caption>
+      <image:title>ทัวร์ภูเก็ต</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์พังงา -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/phang-nga</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phang-nga/banner1.jpg</image:loc>
+      <image:caption>ทัวร์พังงา เกาะสิมิลัน อ่าวพังงา เจมส์บอนด์</image:caption>
+      <image:title>ทัวร์พังงา</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์ต่างประเทศ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/international</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- จัดกรุ๊ปทัวร์ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/group-tour</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/group-tour/banner1.jpg</image:loc>
+      <image:caption>จัดกรุ๊ปทัวร์ส่วนตัว บริษัท โรงเรียน ครอบครัว</image:caption>
+      <image:title>จัดกรุ๊ปทัวร์</image:title>
+    </image:image>
+  </url>
+
+  <!-- ติดต่อเรา -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/contact</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ========================================= -->
+  <!-- TOUR DETAIL PAGES - กระบี่ -->
+  <!-- ========================================= -->
+  
+  <!-- ทัวร์ 4 เกาะ กระบี่ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/krabi/four-islands-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/four-islands-hero.jpg</image:loc>
+      <image:caption>ทัวร์ 4 เกาะ กระบี่ One Day Trip ราคา 1,290 บาท</image:caption>
+      <image:title>ทัวร์ 4 เกาะ กระบี่</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/four-islands/gallery1.jpg</image:loc>
+      <image:caption>เกาะปอดะ ชายหาดทรายขาวงาม</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/four-islands/gallery2.jpg</image:loc>
+      <image:caption>ไก่เดี่ยว โขดหินรูปไก่</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เกาะพีพี กระบี่ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/krabi/phi-phi-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/phi-phi-hero.jpg</image:loc>
+      <image:caption>ทัวร์เกาะพีพี อ่าวมาหยา เกาะไผ่ ราคา 1,590 บาท</image:caption>
+      <image:title>ทัวร์เกาะพีพี กระบี่</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/phi-phi/maya-bay.jpg</image:loc>
+      <image:caption>อ่าวมาหยา เกาะพีพี</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เกาะห้อง กระบี่ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/krabi/hong-island-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/krabi/hong-island-tour.jpg</image:loc>
+      <image:caption>ทัวร์เกาะห้อง มาดาม คาเงียน ราคา 1,390 บาท</image:caption>
+      <image:title>ทัวร์เกาะห้อง กระบี่</image:title>
+    </image:image>
+  </url>
+
+  <!-- กระบี่จังเกิ้ลทัวร์ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/krabi/jungle-tour</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/krabi/jungle-tour.jpg</image:loc>
+      <image:caption>กระบี่จังเกิ้ลทัวร์ ล่องแก่ง น้ำตก ถ้ำ</image:caption>
+      <image:title>กระบี่จังเกิ้ลทัวร์</image:title>
+    </image:image>
+  </url>
+
+  <!-- ========================================= -->
+  <!-- TOUR DETAIL PAGES - ภูเก็ต -->
+  <!-- ========================================= -->
+  
+  <!-- ทัวร์เกาะพีพี ภูเก็ต -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phuket/phi-phi-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/phi-phi-hero.jpg</image:loc>
+      <image:caption>ทัวร์เกาะพีพี มาหยา ลันตา ราคา 1,690 บาท</image:caption>
+      <image:title>ทัวร์เกาะพีพี ภูเก็ต</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เจมส์บอนด์ ภูเก็ต -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phuket/james-bond-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/james-bond-island.jpg</image:loc>
+      <image:caption>ทัวร์เกาะเจมส์บอนด์ เขาตะปู ราคา 1,490 บาท</image:caption>
+      <image:title>ทัวร์เจมส์บอนด์ ภูเก็ต</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เกาะราชา คอรัล -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phuket/coral-racha-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phuket/coral-racha-island.jpg</image:loc>
+      <image:caption>ทัวร์เกาะราชา เกาะคอรัล ราคา 1,590 บาท</image:caption>
+      <image:title>ทัวร์เกาะราชา คอรัล</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เกาะคอรัล คาตามารัน -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phuket/coral-catamaran-sunset</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phuket/coral-island-catamaran-sunset.jpg</image:loc>
+      <image:caption>ทัวร์เกาะคอรัล คาตามารัน ซันเซ็ท</image:caption>
+      <image:title>ทัวร์เกาะคอรัล คาตามารัน</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์ภูเก็ต ซิตี้ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phuket/city-tour</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phuket/phuket-city-tour.jpg</image:loc>
+      <image:caption>ทัวร์ภูเก็ต ซิตี้ พระใหญ่ ถนนคนเดิน</image:caption>
+      <image:title>ทัวร์ภูเก็ต ซิตี้</image:title>
+    </image:image>
+  </url>
+
+  <!-- ========================================= -->
+  <!-- TOUR DETAIL PAGES - พังงา -->
+  <!-- ========================================= -->
+  
+  <!-- ทัวร์เจมส์บอนด์ พังงา -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phang-nga/james-bond-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/tours/james-bond-island.jpg</image:loc>
+      <image:caption>ทัวร์อ่าวพังงา เขาตะปู ถ้ำลอด ราคา 1,390 บาท</image:caption>
+      <image:title>ทัวร์อ่าวพังงา เจมส์บอนด์</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เกาะสิมิลัน -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phang-nga/similan-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phang-nga/similan-speedboat.jpg</image:loc>
+      <image:caption>ทัวร์เกาะสิมิลัน One Day Trip ราคา 3,290 บาท</image:caption>
+      <image:title>ทัวร์เกาะสิมิลัน</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เกาะสุรินทร์ -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phang-nga/surin-speedboat</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phang-nga/surin-speedboat.jpg</image:loc>
+      <image:caption>ทัวร์เกาะสุรินทร์ ดำน้ำดูปะการัง</image:caption>
+      <image:title>ทัวร์เกาะสุรินทร์</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เจมส์บอนด์ เรือหางยาว -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phang-nga/james-bond-longtail</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phang-nga/james-bond-longtail.jpg</image:loc>
+      <image:caption>ทัวร์เจมส์บอนด์ เรือหางยาว บรรยากาศดั้งเดิม</image:caption>
+      <image:title>ทัวร์เจมส์บอนด์ เรือหางยาว</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์เจมส์บอนด์ พร้อมเรือแคนู -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phang-nga/james-bond-longtail-canoe</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phang-nga/james-bond-longtail-canoe.jpg</image:loc>
+      <image:caption>ทัวร์เจมส์บอนด์ พร้อมเรือแคนูสำรวจถ้ำ</image:caption>
+      <image:title>ทัวร์เจมส์บอนด์ เรือแคนู</image:title>
+    </image:image>
+  </url>
+
+  <!-- ทัวร์ล่องแก่ง + ATV -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/tours/phang-nga/bamboo-rafting</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://sevensmiletourandticket.com/images/phang-nga/bamboo-rafting.jpg</image:loc>
+      <image:caption>ทัวร์ล่องแก่ง + ATV + ช้าง + วัด</image:caption>
+      <image:title>ทัวร์ล่องแก่ง ATV</image:title>
+    </image:image>
+  </url>
+
+  <!-- ========================================= -->
+  <!-- LEGACY REDIRECTS - เพื่อ SEO -->
+  <!-- ========================================= -->
+  <url>
+    <loc>https://sevensmiletourandticket.com/krabi/four-islands</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+  <url>
+    <loc>https://sevensmiletourandticket.com/phuket/phi-phi</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+  <url>
+    <loc>https://sevensmiletourandticket.com/phang-nga/james-bond</loc>
+    <lastmod>2024-12-19T10:00:00+07:00</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+</urlset>

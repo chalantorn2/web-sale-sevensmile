@@ -1,0 +1,185 @@
+# robots.txt สำหรับ Seven Smile Tour And Ticket
+# SEO และ Search Engine Optimization
+
+User-agent: *
+Allow: /
+
+# =========================================
+# ALLOW - ไฟล์และโฟลเดอร์ที่อนุญาต
+# =========================================
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /fonts/
+Allow: /api/tours
+Allow: /api/gallery
+Allow: /api/health
+
+# Allow สำหรับ tour pages
+Allow: /tours/
+Allow: /krabi/
+Allow: /phuket/
+Allow: /phang-nga/
+Allow: /international/
+Allow: /group-tour/
+Allow: /contact/
+
+# =========================================
+# DISALLOW - ไฟล์และโฟลเดอร์ที่ห้าม crawl
+# =========================================
+# Admin และ backend
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+
+# API endpoints ที่เป็น private
+Disallow: /api/admin/
+Disallow: /api/auth/
+Disallow: /api/private/
+Disallow: /api/internal/
+
+# Development และ config files
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /config/
+Disallow: /tmp/
+Disallow: /cache/
+Disallow: /logs/
+
+# Private และ sensitive files
+Disallow: /*.log$
+Disallow: /*.sql$
+Disallow: /*.backup$
+Disallow: /*.bak$
+Disallow: /*.config$
+Disallow: /*.env$
+Disallow: /*.json$ 
+Disallow: /package.json
+Disallow: /package-lock.json
+
+# Search parameters (เพื่อหลีกเลี่ยง duplicate content)
+Disallow: /*?search=
+Disallow: /*?filter=
+Disallow: /*?sort=
+Disallow: /*?page=
+Disallow: /*?utm_
+Disallow: /*?ref=
+Disallow: /*?fb_
+
+# Session และ tracking parameters
+Disallow: /*?sid=
+Disallow: /*?session=
+Disallow: /*?token=
+Disallow: /*?auth=
+
+# =========================================
+# SPECIFIC USER AGENTS
+# =========================================
+
+# Google Bot - อนุญาตทุกอย่างที่ระบุไว้
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing Bot
+User-agent: Bingbot  
+Allow: /
+Crawl-delay: 1
+
+# Facebook Bot สำหรับ Open Graph
+User-agent: facebookexternalhit
+Allow: /
+Allow: /images/
+
+# Twitter Bot สำหรับ Twitter Cards
+User-agent: Twitterbot
+Allow: /
+Allow: /images/
+
+# Line Bot สำหรับ preview
+User-agent: Linespider
+Allow: /
+Allow: /images/
+
+# =========================================
+# CRAWL DELAY - ความเร็วในการ crawl
+# =========================================
+Crawl-delay: 1
+
+# =========================================
+# SITEMAP LOCATION
+# =========================================
+Sitemap: https://sevensmiletourandticket.com/sitemap.xml
+Sitemap: https://sevensmiletourandticket.com/sitemap-images.xml
+
+# =========================================
+# BLOCK BAD BOTS AND SCRAPERS
+# =========================================
+
+# Block aggressive scrapers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# Block AI training bots (optional)
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Block malicious bots
+User-agent: *BadBot*
+Disallow: /
+
+User-agent: *spam*
+Disallow: /
+
+User-agent: *Scraper*
+Disallow: /
+
+# =========================================
+# SPECIAL DIRECTIVES
+# =========================================
+
+# Clean URLs - ไม่ต้องการ index.html
+Disallow: /index.html
+Disallow: /*/index.html
+
+# ไม่ต้องการ version files
+Disallow: /version.txt
+Disallow: /VERSION
+Disallow: /readme.txt
+Disallow: /README.md
+
+# ไม่ต้องการ development files
+Disallow: /.well-known/
+Disallow: /test/
+Disallow: /demo/
+Disallow: /dev/
+
+# =========================================
+# ADDITIONAL NOTES
+# =========================================
+# Last updated: 2024-12-19
+# Contact: sevensmiletour@gmail.com
+# Website: https://sevensmiletourandticket.com

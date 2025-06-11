@@ -241,40 +241,8 @@
       }
     </script>
 
-    <!-- Preload Critical Resources -->
-    <link
-      rel="preload"
-      href="/images/hero-bg.jpg"
-      as="image"
-      type="image/jpeg"
-    />
-    <link rel="preload" href="/images/logo.png" as="image" type="image/png" />
-
-    <!-- Alternative Languages (hreflang) -->
-    <link
-      rel="alternate"
-      hreflang="th"
-      href="https://www.sevensmiletour.com/"
-    />
-    <link
-      rel="alternate"
-      hreflang="en"
-      href="https://www.sevensmiletour.com/en/"
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href="https://www.sevensmiletour.com/"
-    />
-
-    <!-- Security Headers via Meta (backup for servers that don't support headers) -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta
-      http-equiv="Referrer-Policy"
-      content="strict-origin-when-cross-origin"
-    />
+    <!-- ❌ REMOVED: Security Headers via Meta (will use .htaccess instead) -->
+    <!-- These should be set via HTTP headers, not meta tags -->
 
     <!-- Theme Color for Mobile Browsers -->
     <meta name="theme-color" content="#0066cc" />
