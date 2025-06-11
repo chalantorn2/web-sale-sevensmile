@@ -1,7 +1,7 @@
 {
   "name": "web-sale-sevensmile",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "app.js",
   "scripts": {
@@ -10,14 +10,22 @@
     "dev:api:watch": "nodemon api/server.js",
     "dev:full": "concurrently \"npm run dev\" \"npm run dev:api:watch\"",
     "build": "vite build",
-    "build:prod": "vite build --mode production",
+    "build:prod": "NODE_ENV=production vite build",
+    "build:analyze": "vite build --mode analyze",
+    "preview": "vite preview --host --port 4173",
+    "preview:prod": "vite build && vite preview",
     "start": "node app.js",
     "start:api": "node api/server.js",
-    "preview": "vite preview --host --port 4173",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "clean": "rm -rf dist node_modules/.vite",
+    "clean:build": "rm -rf dist && npm run build",
     "test:api": "node -e \"console.log('Testing API...'); fetch('http://localhost:3001/api/health').then(r=>r.json()).then(console.log).catch(console.error)\"",
-    "test:db": "node -e \"console.log('Testing DB...'); fetch('http://localhost:3001/api/test-db').then(r=>r.json()).then(console.log).catch(console.error)\""
+    "test:db": "node -e \"console.log('Testing DB...'); fetch('http://localhost:3001/api/test-db').then(r=>r.json()).then(console.log).catch(console.error)\"",
+    "deploy:build": "npm run clean && npm run build:prod",
+    "deploy:upload": "npm run deploy:build && echo 'Upload dist folder to HostAtom'",
+    "seo:check": "node scripts/seo-check.js",
+    "seo:sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.5",
@@ -46,7 +54,9 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "nodemon": "^3.1.10",
-    "vite": "^6.3.5"
+    "terser": "^5.29.1",
+    "vite": "^6.3.5",
+    "vite-bundle-analyzer": "^0.7.0"
   },
   "engines": {
     "node": ">=18.0.0",
