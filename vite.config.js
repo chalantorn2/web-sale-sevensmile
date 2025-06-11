@@ -60,7 +60,13 @@ export default defineConfig({
 
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1600,
+
+    // ✅ Copy files from public directory
+    copyPublicDir: true,
   },
+
+  // 🎯 Public directory configuration
+  publicDir: "public",
 
   // Server configuration สำหรับ development
   server: {
@@ -110,8 +116,15 @@ export default defineConfig({
     drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
   },
 
-  // Legacy browser support (ถ้าต้องการ)
-  // build: {
-  //   target: 'es2015'
-  // }
+  // ✅ Ensure all public files are copied
+  assetsInclude: [
+    "**/*.xml",
+    "**/*.txt",
+    "**/*.json",
+    "**/*.png",
+    "**/*.jpg",
+    "**/*.jpeg",
+    "**/*.gif",
+    "**/*.svg",
+  ],
 });
