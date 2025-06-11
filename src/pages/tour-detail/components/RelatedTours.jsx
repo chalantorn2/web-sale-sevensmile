@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
-import supabase from "../../../utils/supabase";
+import { selectMany } from "../../../utils/api";
 
 const RelatedTours = ({ currentTour }) => {
   const [relatedTours, setRelatedTours] = useState([]);
@@ -17,32 +17,19 @@ const RelatedTours = ({ currentTour }) => {
       try {
         setLoading(true);
 
-        // ดึงทัวร์ที่เกี่ยวข้อง (ไม่รวมทัวร์ปัจจุบัน)
-        const { data, error } = await supabase
-          .from("tours")
-          .select(
-            `
-            id,
-            title,
-            hero_image,
-            location,
-            destination,
-            base_price,
-            old_price,
-            duration,
-            rating,
-            slug
-          `
-          )
-          .neq("id", currentTour.id) // ไม่เอาทัวร์ปัจจุบัน
-          .order("rating", { ascending: false })
-          .limit(8); // เอามาสำรอง 8 ตัว แล้วจะ filter เหลือ 4
+        // ดึงทัวร์ที่เกี่ยวข้อง (ไม่รวมทัวร์ปัจจุบัน) ด้วย database.js
+        const { data, error } = await selectMany("tours", {
+          orderBy: "rating",
+          order: "DESC",
+          limit: 8,
+        });
 
-        if (error) throw error;
+        if (error) throw new Error(error);
 
-        // แปลงข้อมูลให้ตรงกับ format เดิม
-        const formattedTours =
-          data?.map((tour) => ({
+        // กรองทัวร์ปัจจุบันออก และแปลงข้อมูลให้ตรงกับ format เดิม
+        const filteredData = (data || [])
+          .filter((tour) => tour.id !== currentTour.id)
+          .map((tour) => ({
             id: tour.id,
             title: tour.title,
             slug: tour.slug,
@@ -54,18 +41,18 @@ const RelatedTours = ({ currentTour }) => {
             rating: tour.rating,
             image: tour.hero_image,
             link: `/tours/${tour.destination}/${tour.slug}`,
-          })) || [];
+          }));
 
         // จัดลำดับความสำคัญ: จังหวัดเดียวกันก่อน แล้วค่อยจังหวัดอื่น
-        const samDestination = formattedTours.filter(
+        const sameDestination = filteredData.filter(
           (tour) => tour.destination === currentTour.destination
         );
-        const otherDestinations = formattedTours.filter(
+        const otherDestinations = filteredData.filter(
           (tour) => tour.destination !== currentTour.destination
         );
 
         // รวมกันและเอาแค่ 4 ตัว
-        const finalTours = [...samDestination, ...otherDestinations].slice(
+        const finalTours = [...sameDestination, ...otherDestinations].slice(
           0,
           4
         );

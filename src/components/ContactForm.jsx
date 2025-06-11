@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
-import supabase from "../utils/supabase";
+import { insertOne } from "../utils/api";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -31,24 +31,43 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Submit to Supabase
-      const { error } = await supabase.from("contacts").insert([
-        {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-        },
-      ]);
+      // เตรียมข้อมูลสำหรับบันทึกในฐานข้อมูล
+      const dbData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+        status: "pending", // สถานะเริ่มต้น
+        source: "contact_form", // แหล่งที่มา
+        ip_address: null, // สามารถเพิ่ม IP address ได้ถ้าต้องการ
+        user_agent: navigator.userAgent, // ข้อมูล browser
+        created_at: new Date().toISOString().slice(0, 19).replace("T", " "), // MySQL datetime format
+        updated_at: new Date().toISOString().slice(0, 19).replace("T", " "),
+      };
 
-      if (error) throw error;
+      // บันทึกข้อมูลลงฐานข้อมูล
+      const { data: insertResult, error: dbError } = await insertOne(
+        "contacts",
+        dbData
+      );
+
+      if (dbError) {
+        throw new Error(`Database error: ${dbError}`);
+      }
+
+      // ส่งอีเมลแจ้งเตือน (เลือกใช้หรือไม่ก็ได้)
+      try {
+        await sendNotificationEmail(formData, insertResult.id);
+      } catch (emailError) {
+        console.warn("Email sending failed, but data was saved:", emailError);
+      }
 
       // Success
       setSubmitStatus({
         submitted: true,
         success: true,
-        message: "ส่งข้อความสำเร็จ! เราจะติดต่อกลับโดยเร็วที่สุด",
+        message: `ส่งข้อความสำเร็จ! (รหัสอ้างอิง: #${insertResult.id}) เราจะติดต่อกลับโดยเร็วที่สุด`,
       });
 
       // Reset form
@@ -62,21 +81,31 @@ const ContactForm = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
 
-      // Show fallback success message even when error occurs (for demo)
-      setSubmitStatus({
-        submitted: true,
-        success: true,
-        message: "ส่งข้อความสำเร็จ! เราจะติดต่อกลับโดยเร็วที่สุด",
-      });
+      if (error.message.includes("Database")) {
+        // แสดง error message สำหรับปัญหาฐานข้อมูล
+        setSubmitStatus({
+          submitted: true,
+          success: false,
+          message:
+            "เกิดข้อผิดพลาดในการบันทึกข้อมูล โปรดลองใหม่อีกครั้ง หรือติดต่อเราโดยตรงที่ 095-265-5516",
+        });
+      } else {
+        // Fallback success message สำหรับ demo/development
+        setSubmitStatus({
+          submitted: true,
+          success: true,
+          message: "ส่งข้อความสำเร็จ! เราจะติดต่อกลับโดยเร็วที่สุด",
+        });
 
-      // Reset form anyway for demo
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
+        // Reset form anyway for demo
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+      }
     } finally {
       setIsSubmitting(false);
 
@@ -88,6 +117,28 @@ const ContactForm = () => {
         }));
       }, 5000);
     }
+  };
+
+  // เพิ่มฟังก์ชันส่งอีเมลแจ้งเตือน (เลือกใช้)
+  const sendNotificationEmail = async (formData, contactId) => {
+    // สามารถใช้ services เช่น EmailJS, SendGrid, หรือ API ของตัวเอง
+    console.log("Sending notification email for contact:", contactId);
+
+    // ตัวอย่างการส่งผ่าน EmailJS (ถ้าต้องการ)
+    /*
+  const emailData = {
+    contact_id: contactId,
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    subject: formData.subject,
+    message: formData.message,
+    timestamp: new Date().toLocaleString('th-TH')
+  };
+  
+  // ส่งอีเมลไปยัง admin
+  await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailData, 'YOUR_PUBLIC_KEY');
+  */
   };
 
   return (

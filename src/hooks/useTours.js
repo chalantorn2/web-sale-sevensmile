@@ -1,10 +1,7 @@
+// src/hooks/useTours.js - Updated สำหรับใช้ API
 import { useState, useEffect } from "react";
-import supabase from "../utils/supabase";
+import { toursApi } from "../utils/api";
 
-/**
- * Hook สำหรับดึงรายการทัวร์จากฐานข้อมูล
- * รองรับทั้งข้อมูลใหม่และ fallback ข้อมูลเก่า
- */
 const useTours = (destination = null, limit = 10) => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,63 +15,37 @@ const useTours = (destination = null, limit = 10) => {
         setLoading(true);
         setError(null);
 
-        let query = supabase
-          .from("tours")
-          .select(
-            `
-            id,
-            title,
-            hero_image,
-            location,
-            destination,
-            base_price,
-            old_price,
-            duration,
-            rating,
-            slug,
-            is_featured,
-            review_count
-          `
-          )
-          .order("sort_order", { ascending: true })
-          .limit(limit);
+        console.log(
+          `🔍 Fetching tours: destination=${destination}, limit=${limit}`
+        );
 
-        if (destination) {
-          query = query.eq("destination", destination);
-        }
+        // Use API instead of direct database
+        const params = {};
+        if (destination) params.destination = destination;
+        if (limit) params.limit = limit;
 
-        const { data, error: fetchError } = await query;
-
-        if (fetchError) throw fetchError;
+        const result = await toursApi.getAll(params);
 
         if (isMounted) {
-          // แปลงข้อมูลให้ตรงกับ format เดิม
-          const formattedTours =
-            data?.map((tour) => ({
-              id: tour.id,
-              title: tour.title,
-              image: tour.hero_image,
-              location: tour.location,
-              destination: tour.destination,
-              price: tour.base_price,
-              oldPrice: tour.old_price,
-              duration: tour.duration,
-              rating: tour.rating,
-              link: `/tours/${tour.destination}/${tour.slug}`,
-              featured: tour.is_featured,
-              reviewCount: tour.review_count,
-            })) || [];
-
-          setTours(formattedTours);
+          if (result.error) {
+            console.warn("⚠️ API Error, using fallback data:", result.error);
+            // Fallback to sample data
+            const fallbackTours = getSampleTours(destination, limit);
+            setTours(fallbackTours);
+            setError(`API Error: ${result.error} (ใช้ข้อมูลตัวอย่าง)`);
+          } else {
+            console.log(`✅ Tours loaded: ${result.data.length} tours`);
+            setTours(result.data || []);
+          }
           setLoading(false);
         }
       } catch (err) {
-        console.error("Error fetching tours:", err);
-
+        console.error("❌ Error fetching tours:", err);
         if (isMounted) {
           setError(err.message);
-          // Fallback to sample data if database error
-          setTours(getSampleTours(destination, limit));
+          // Fallback to sample data on error
+          const fallbackTours = getSampleTours(destination, limit);
+          setTours(fallbackTours);
           setLoading(false);
         }
       }
@@ -90,203 +61,128 @@ const useTours = (destination = null, limit = 10) => {
   return { tours, loading, error };
 };
 
-// Sample data as fallback (เดิม)
+// Sample data as fallback (เดิม - เพื่อให้ website ยังใช้งานได้ถ้า API ล้ม)
 const getSampleTours = (destination = null, limit = 10) => {
   const allTours = [
     {
       id: 1,
       title: "ทัวร์ 4 เกาะ กระบี่ One Day Trip",
-      image: "/images/krabi/tour1.jpg",
+      image: "/images/tours/four-islands-krabi.jpg",
       location: "กระบี่",
       destination: "krabi",
       price: 1290,
       oldPrice: 1590,
       duration: "1 วัน",
       rating: 4.8,
-      link: "/krabi/four-islands",
+      link: "/tours/krabi/four-islands-speedboat",
+      slug: "four-islands-speedboat",
       featured: true,
+      reviewCount: 156,
     },
     {
       id: 2,
       title: "ทัวร์เกาะพีพี อ่าวมาหยา เกาะไผ่",
-      image: "/images/krabi/tour2.jpg",
+      image: "/images/tours/phi-phi-hero.jpg",
       location: "กระบี่",
       destination: "krabi",
       price: 1590,
       oldPrice: 1890,
       duration: "1 วัน",
       rating: 4.7,
-      link: "/krabi/phi-phi-bamboo",
+      link: "/tours/krabi/phi-phi-speedboat",
+      slug: "phi-phi-speedboat",
       featured: true,
+      reviewCount: 142,
     },
     {
       id: 3,
       title: "ทัวร์เกาะห้อง มาดาม คาเงียน",
-      image: "/images/krabi/tour3.jpg",
+      image: "/images/krabi/hong-island-tour.jpg",
       location: "กระบี่",
       destination: "krabi",
       price: 1390,
       oldPrice: null,
       duration: "1 วัน",
       rating: 4.6,
-      link: "/krabi/hong-island",
+      link: "/tours/krabi/hong-island-speedboat",
+      slug: "hong-island-speedboat",
       featured: false,
+      reviewCount: 98,
     },
     {
       id: 4,
       title: "ทัวร์เกาะพีพี มาหยา ลันตา",
-      image: "/images/phuket/tour1.jpg",
+      image: "/images/tours/phi-phi-hero.jpg",
       location: "ภูเก็ต",
       destination: "phuket",
       price: 1690,
       oldPrice: 1990,
       duration: "1 วัน",
       rating: 4.9,
-      link: "/phuket/phi-phi",
+      link: "/tours/phuket/phi-phi-speedboat",
+      slug: "phi-phi-speedboat",
       featured: true,
+      reviewCount: 203,
     },
     {
       id: 5,
       title: "ทัวร์เกาะเจมส์บอนด์ เขาตะปู",
-      image: "/images/phuket/tour2.jpg",
+      image: "/images/tours/james-bond-island.jpg",
       location: "ภูเก็ต",
       destination: "phuket",
       price: 1490,
       oldPrice: 1790,
       duration: "1 วัน",
       rating: 4.8,
-      link: "/phuket/james-bond",
+      link: "/tours/phuket/james-bond-speedboat",
+      slug: "james-bond-speedboat",
       featured: true,
+      reviewCount: 167,
     },
     {
       id: 6,
-      title: "ทัวร์ชมเมืองภูเก็ต พระพุทธมิ่งมงคลฯ แหลมพรหมเทพ",
-      image: "/images/phuket/tour3.jpg",
+      title: "ทัวร์เกาะราชา เกาะคอรัล",
+      image: "/images/phuket/coral-racha-island.jpg",
       location: "ภูเก็ต",
       destination: "phuket",
-      price: 990,
+      price: 1590,
       oldPrice: null,
       duration: "1 วัน",
-      rating: 4.6,
-      link: "/phuket/city-tour",
+      rating: 4.7,
+      link: "/tours/phuket/coral-racha-speedboat",
+      slug: "coral-racha-speedboat",
       featured: false,
+      reviewCount: 134,
     },
     {
       id: 7,
       title: "ทัวร์อ่าวพังงา เขาตะปู ถ้ำลอด",
-      image: "/images/phang-nga/tour1.jpg",
+      image: "/images/tours/james-bond-island.jpg",
       location: "พังงา",
       destination: "phang-nga",
       price: 1390,
       oldPrice: 1690,
       duration: "1 วัน",
       rating: 4.8,
-      link: "/phang-nga/james-bond",
+      link: "/tours/phang-nga/james-bond-speedboat",
+      slug: "james-bond-speedboat",
       featured: true,
+      reviewCount: 189,
     },
     {
       id: 8,
       title: "ทัวร์เกาะสิมิลัน One Day Trip",
-      image: "/images/phang-nga/tour2.jpg",
+      image: "/images/phang-nga/similan-speedboat.jpg",
       location: "พังงา",
       destination: "phang-nga",
       price: 3290,
       oldPrice: 3790,
       duration: "1 วัน",
       rating: 4.9,
-      link: "/phang-nga/similan",
+      link: "/tours/phang-nga/similan-speedboat",
+      slug: "similan-speedboat",
       featured: true,
-    },
-    {
-      id: 9,
-      title: "ทัวร์เกาะสุรินทร์ วันเดย์ทริป",
-      image: "/images/phang-nga/tour3.jpg",
-      location: "พังงา",
-      destination: "phang-nga",
-      price: 2990,
-      oldPrice: 3290,
-      duration: "1 วัน",
-      rating: 4.7,
-      link: "/phang-nga/surin",
-      featured: false,
-    },
-    {
-      id: 10,
-      title: "ทัวร์ญี่ปุ่น โตเกียว ฟูจิ 5 วัน 3 คืน",
-      image: "/images/international/japan1.jpg",
-      location: "ญี่ปุ่น",
-      destination: "international",
-      price: 29900,
-      oldPrice: 35900,
-      duration: "5 วัน 3 คืน",
-      rating: 4.8,
-      link: "/international/japan-tokyo",
-      featured: true,
-    },
-    {
-      id: 11,
-      title: "ทัวร์เกาหลี โซล เอเวอร์แลนด์ 5 วัน 3 คืน",
-      image: "/images/international/korea1.jpg",
-      location: "เกาหลี",
-      destination: "international",
-      price: 19900,
-      oldPrice: 25900,
-      duration: "5 วัน 3 คืน",
-      rating: 4.7,
-      link: "/international/korea-seoul",
-      featured: true,
-    },
-    {
-      id: 12,
-      title: "ทัวร์เวียดนาม ฮานอย ซาปา 4 วัน 3 คืน",
-      image: "/images/international/vietnam1.jpg",
-      location: "เวียดนาม",
-      destination: "international",
-      price: 14900,
-      oldPrice: 17900,
-      duration: "4 วัน 3 คืน",
-      rating: 4.6,
-      link: "/international/vietnam-hanoi",
-      featured: false,
-    },
-    {
-      id: 13,
-      title: "ทัวร์เกาะห้อง เรือสปีดโบ๊ท/เรือหางยาว",
-      image: "/images/krabi/hong-island-tour.jpg",
-      location: "กระบี่",
-      destination: "krabi",
-      price: 1390,
-      oldPrice: 1590,
-      duration: "1 วัน",
-      rating: 4.7,
-      link: "/tours/krabi/hong-island-tour",
-      featured: true,
-    },
-    {
-      id: 14,
-      title: "ซิตี้ทัวร์กระบี่ ครึ่งวัน",
-      image: "/images/krabi/krabi-city-tour.jpg",
-      location: "กระบี่",
-      destination: "krabi",
-      price: 590,
-      oldPrice: 790,
-      duration: "ครึ่งวัน",
-      rating: 4.5,
-      link: "/tours/krabi/krabi-city-tour",
-      featured: false,
-    },
-    {
-      id: 15,
-      title: "กระบี่จังเกิ้ลทัวร์",
-      image: "/images/krabi/jungle-tour.jpg",
-      location: "กระบี่",
-      destination: "krabi",
-      price: 1490,
-      oldPrice: 1790,
-      duration: "1 วัน",
-      rating: 4.8,
-      link: "/tours/krabi/krabi-jungle-tour",
-      featured: true,
+      reviewCount: 245,
     },
   ];
 

@@ -5,24 +5,34 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
+    "dev:api": "node api/server.js",
+    "dev:api:watch": "nodemon api/server.js",
+    "dev:full": "concurrently \"npm run dev\" \"npm run dev:api:watch\"",
     "build": "vite build",
+    "build:prod": "vite build --mode production",
     "start": "node app.js",
-    "preview": "vite preview",
-    "lint": "eslint ."
+    "start:api": "node api/server.js",
+    "preview": "vite preview --host --port 4173",
+    "lint": "eslint .",
+    "clean": "rm -rf dist node_modules/.vite",
+    "test:api": "node -e \"console.log('Testing API...'); fetch('http://localhost:3001/api/health').then(r=>r.json()).then(console.log).catch(console.error)\"",
+    "test:db": "node -e \"console.log('Testing DB...'); fetch('http://localhost:3001/api/test-db').then(r=>r.json()).then(console.log).catch(console.error)\""
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/vite": "^4.1.5",
     "compression": "^1.8.0",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
     "framer-motion": "^12.12.1",
     "helmet": "^7.2.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.14.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.3",
-    "supabase": "^2.22.12",
     "tailwindcss": "^4.1.5"
   },
   "devDependencies": {
@@ -30,10 +40,12 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^7.6.0",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "nodemon": "^3.1.10",
     "vite": "^6.3.5"
   },
   "engines": {

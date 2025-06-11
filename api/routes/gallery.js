@@ -1,88 +1,97 @@
-import { useState, useEffect } from "react";
-import { selectMany } from "../utils/api";
+// api/routes/gallery.js - Gallery Routes
+import express from "express";
+import { selectMany } from "../middleware/database.js";
 
-/**
- * Hook สำหรับดึงข้อมูล Gallery รูปงานกรุ๊ปทัวร์
- * อัพเดตให้ใช้ database.js แทน supabase
- */
-const useGroupTourGallery = (type = "all") => {
-  const [gallery, setGallery] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const router = express.Router();
 
-  useEffect(() => {
-    let isMounted = true;
+// GET /api/gallery - Get group tour gallery
+router.get("/", async (req, res) => {
+  try {
+    const { type = "all", active = "all" } = req.query;
 
-    const fetchGallery = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+    // เริ่มด้วยการดูว่ามีตารางและข้อมูลไหม
+    let sql = "SELECT * FROM group_tour_gallery WHERE 1=1";
+    let params = [];
 
-        // สร้างเงื่อนไขการ query
-        const queryOptions = {
-          where: {
-            is_active: 1, // MySQL ใช้ 1/0 แทน true/false
-          },
-          orderBy: "sort_order",
-          order: "ASC",
-        };
+    // Filter by active status (default: show all)
+    if (active === "true" || active === "1") {
+      sql += " AND is_active = 1";
+    } else if (active === "false" || active === "0") {
+      sql += " AND is_active = 0";
+    }
+    // ถ้า active = 'all' จะแสดงทั้งหมด (ไม่เพิ่ม WHERE is_active)
 
-        // กรองตาม type ถ้าไม่ใช่ 'all'
-        if (type !== "all") {
-          queryOptions.where.type = type;
-        }
+    // ถ้าต้องการ filter by type
+    if (type !== "all") {
+      sql += " AND type = ?";
+      params.push(type);
+    }
 
-        // ดึงข้อมูลจากฐานข้อมูล
-        const { data, error: fetchError } = await selectMany(
-          "group_tour_gallery",
-          queryOptions
-        );
+    sql += " ORDER BY sort_order ASC, id DESC"; // เรียงตาม sort_order แล้วจาก id ใหม่ไปเก่า
 
-        if (fetchError) {
-          throw new Error(fetchError);
-        }
+    console.log("🔍 Gallery Query:", sql, params);
 
-        if (isMounted) {
-          // แปลงข้อมูลให้เข้ากับ format ที่ frontend ต้องการ
-          const formattedData = (data || []).map((item) => ({
-            id: item.id,
-            title: item.title,
-            image_url: item.image_url,
-            type: item.type,
-            participants_count: item.participants_count,
-            year: item.year,
-            description: item.description,
-            created_at: item.created_at,
-          }));
+    const result = await query(sql, params);
 
-          setGallery(formattedData);
-          setLoading(false);
-        }
-      } catch (err) {
-        console.error("Error fetching gallery:", err);
+    if (result.success) {
+      console.log(`📊 Gallery found ${result.data.length} records`);
 
-        if (isMounted) {
-          setError(err.message);
-          // Fallback to mock data ถ้าเกิด error
-          setGallery(getMockGalleryData(type));
-          setLoading(false);
-        }
+      // Log sample data for debugging
+      if (result.data.length > 0) {
+        console.log("📸 Sample gallery item:", {
+          id: result.data[0].id,
+          title: result.data[0].title?.substring(0, 30) + "...",
+          type: result.data[0].type,
+          is_active: result.data[0].is_active,
+        });
       }
-    };
 
-    fetchGallery();
+      const gallery = result.data.map((item) => ({
+        id: item.id,
+        title: item.title,
+        image_url: item.image_url,
+        type: item.type,
+        participants_count: item.participants_count,
+        year: item.year,
+        sort_order: item.sort_order,
+        is_active: Boolean(item.is_active),
+        description: item.description || null,
+        created_at: item.created_at,
+      }));
 
-    return () => {
-      isMounted = false;
-    };
-  }, [type]);
+      res.json({
+        success: true,
+        data: gallery,
+        count: gallery.length,
+        filter: { type, active },
+        debug: {
+          sql: sql,
+          params: params,
+          totalRows: result.data.length,
+        },
+      });
+    } else {
+      throw new Error(result.error);
+    }
+  } catch (error) {
+    console.error("❌ Gallery API Error:", error.message);
 
-  return { gallery, loading, error };
-};
+    // Fallback to sample gallery data
+    const sampleGallery = getSampleGallery(req.query.type);
 
-// Mock data สำหรับ fallback และการทดสอบ
-const getMockGalleryData = (type = "all") => {
-  const mockData = [
+    res.json({
+      success: true,
+      data: sampleGallery,
+      count: sampleGallery.length,
+      fallback: true,
+      error: error.message,
+    });
+  }
+});
+
+// Sample gallery data for fallback
+const getSampleGallery = (type = "all") => {
+  const allGallery = [
     {
       id: 1,
       title: "กรุ๊ปทัวร์บริษัท ABC 45 ท่าน - ภูเก็ต",
@@ -91,6 +100,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 45,
       year: 2024,
       description: "ทัวร์ภูเก็ต 3 วัน 2 คืน สำหรับพนักงานบริษัท ABC",
+      created_at: "2024-03-15",
     },
     {
       id: 2,
@@ -100,6 +110,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 38,
       year: 2024,
       description: "ทัวร์กระบี่ 2 วัน 1 คืน สำหรับครอบครัวใหญ่",
+      created_at: "2024-02-20",
     },
     {
       id: 3,
@@ -109,6 +120,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 22,
       year: 2024,
       description: "ทัวร์เกาะสิมิลัน 1 วัน สำหรับกลุ่มเพื่อน",
+      created_at: "2024-01-10",
     },
     {
       id: 4,
@@ -118,6 +130,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 55,
       year: 2023,
       description: "ทัวร์ศึกษาดูงาน กระบี่ สำหรับนักเรียนมัธยม",
+      created_at: "2023-12-05",
     },
     {
       id: 5,
@@ -127,6 +140,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 28,
       year: 2023,
       description: "ทัวร์อ่าวพังงา สำหรับกลุ่มเพื่อนสนิท",
+      created_at: "2023-11-18",
     },
     {
       id: 6,
@@ -136,6 +150,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 25,
       year: 2024,
       description: "ทัวร์ญี่ปุ่น โตเกียว 5 วัน 3 คืน",
+      created_at: "2024-04-10",
     },
     {
       id: 7,
@@ -145,6 +160,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 32,
       year: 2024,
       description: "ทัวร์เกาหลี โซล 5 วัน 3 คืน",
+      created_at: "2024-03-25",
     },
     {
       id: 8,
@@ -154,6 +170,7 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 18,
       year: 2023,
       description: "ทัวร์ยุโรป ฝรั่งเศส-อิตาลี 8 วัน 5 คืน",
+      created_at: "2023-10-15",
     },
     {
       id: 9,
@@ -163,23 +180,15 @@ const getMockGalleryData = (type = "all") => {
       participants_count: 42,
       year: 2023,
       description: "ทัวร์สิงคโปร์ 4 วัน 3 คืน สำหรับกลุ่มใหญ่",
-    },
-    {
-      id: 10,
-      title: "กรุ๊ปทัวร์มัลดีฟส์ 16 ท่าน",
-      image_url: "/images/group-tour/gallery/international-5.jpg",
-      type: "international",
-      participants_count: 16,
-      year: 2024,
-      description: "ทัวร์มัลดีฟส์ 5 วัน 3 คืน ฮันนีมูนกรุ๊ป",
+      created_at: "2023-09-08",
     },
   ];
 
   if (type === "all") {
-    return mockData;
+    return allGallery;
   }
 
-  return mockData.filter((item) => item.type === type);
+  return allGallery.filter((item) => item.type === type);
 };
 
-export default useGroupTourGallery;
+export default router;
