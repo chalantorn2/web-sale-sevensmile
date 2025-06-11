@@ -155,6 +155,40 @@ router.get("/:destination/:slug", async (req, res) => {
       orderBy: "sort_order",
     });
 
+    console.log(
+      `🖼️ Media found for tour ${tour.id}: ${
+        mediaResult.success ? mediaResult.data.length : 0
+      } items`
+    );
+    if (mediaResult.success && mediaResult.data.length > 0) {
+      console.log("📸 Raw media data:", mediaResult.data[0]);
+    }
+
+    // Format gallery data ให้ถูกต้อง
+    let galleryData = [];
+    if (
+      mediaResult.success &&
+      mediaResult.data &&
+      mediaResult.data.length > 0
+    ) {
+      galleryData = mediaResult.data.map((item) => {
+        console.log("🖼️ Processing media item:", {
+          id: item.id,
+          url: item.url,
+          alt_text: item.alt_text,
+          caption: item.caption,
+        });
+
+        return {
+          src: item.url, // ✅ ต้องเป็น 'src'
+          alt: item.alt_text, // ✅ ต้องเป็น 'alt'
+          caption: item.caption,
+        };
+      });
+
+      console.log("🖼️ Formatted gallery:", galleryData);
+    }
+
     // Get tour reviews
     const reviewsResult = await selectMany("tour_reviews", {
       where: { tour_id: tour.id },
@@ -168,6 +202,7 @@ router.get("/:destination/:slug", async (req, res) => {
       orderBy: "sort_order",
     });
 
+    // Format response
     // Format response
     let highlights = [];
     try {
@@ -212,13 +247,7 @@ router.get("/:destination/:slug", async (req, res) => {
       highlights: highlights,
       options: optionsResult.success ? optionsResult.data : [],
       content: contentResult.success ? contentResult.data : [],
-      gallery: mediaResult.success
-        ? mediaResult.data.map((item) => ({
-            src: item.url,
-            alt: item.alt_text,
-            caption: item.caption,
-          }))
-        : [],
+      gallery: galleryData, // ✅ ใช้ galleryData ที่ format แล้ว
       reviews: reviewsResult.success ? reviewsResult.data : [],
       itinerary: itinerariesResult.success ? itinerariesResult.data : [],
     };
@@ -226,6 +255,11 @@ router.get("/:destination/:slug", async (req, res) => {
     res.json({
       success: true,
       data: tourDetail,
+      meta: {
+        gallery_count: tourDetail.gallery ? tourDetail.gallery.length : 0,
+        options_count: tourDetail.options ? tourDetail.options.length : 0,
+        reviews_count: tourDetail.reviews ? tourDetail.reviews.length : 0,
+      },
     });
   } catch (error) {
     console.error("❌ Tour Detail API Error:", error.message);

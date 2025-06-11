@@ -354,7 +354,16 @@ const TourDetail = () => {
             )}
 
             {/* Gallery */}
-            {tour.gallery && <TourGallery gallery={tour.gallery} />}
+            {(() => {
+              console.log("🖼️ TourDetail Gallery check:", {
+                hasGallery: !!tour.gallery,
+                galleryType: typeof tour.gallery,
+                galleryLength: tour.gallery?.length,
+                galleryData: tour.gallery,
+              });
+
+              return tour.gallery && <TourGallery gallery={tour.gallery} />;
+            })()}
 
             {/* Reviews */}
             {tour.reviews && tour.rating && tour.reviewCount && (

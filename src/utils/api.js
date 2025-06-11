@@ -30,7 +30,11 @@ class ApiClient {
         throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
 
-      console.log(`✅ API Success: ${data.count || "N/A"} records`);
+      console.log(
+        `✅ API Success: ${
+          data.meta?.gallery_count || data.count || "OK"
+        } records`
+      );
       return { data: data.data, error: null, meta: data };
     } catch (error) {
       console.error(`❌ API Error: ${error.message}`);
