@@ -1,88 +1,240 @@
-# .htaccess สำหรับ HostAtom
+# .htaccess สำหรับ HostAtom - แก้ไข MIME Types และ SEO
 # วางไฟล์นี้ใน root directory ของ website
 
-# กำหนด MIME types สำหรับ JavaScript modules
+# ========================================
+# MIME TYPES - แก้ปัญหา Module Script
+# ========================================
 <IfModule mod_mime.c>
+    # JavaScript MIME Types
     AddType application/javascript .js
     AddType application/javascript .mjs
     AddType text/javascript .js
     AddType module .mjs
-</IfModule>
-
-# กำหนด MIME types สำหรับ assets อื่นๆ
-<IfModule mod_mime.c>
+    
+    # CSS และ HTML
     AddType text/css .css
+    AddType text/html .html .htm
+    
+    # Images
     AddType image/jpeg .jpg .jpeg
     AddType image/png .png
     AddType image/gif .gif
     AddType image/webp .webp
     AddType image/svg+xml .svg
+    AddType image/x-icon .ico
+    
+    # Documents และ API
     AddType application/json .json
-    AddType text/html .html
+    AddType application/xml .xml
+    AddType text/plain .txt
+    AddType application/pdf .pdf
+    
+    # Fonts
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+    AddType application/font-woff .woff
+    AddType application/font-woff2 .woff2
+    AddType application/vnd.ms-fontobject .eot
+    AddType font/ttf .ttf
+    AddType font/otf .otf
+    
+    # Manifest และ Service Worker
+    AddType application/manifest+json .webmanifest .json
+    AddType text/cache-manifest .appcache
 </IfModule>
 
-# Enable GZIP compression
+# ========================================
+# SECURITY HEADERS - SEO และ Security
+# ========================================
+<IfModule mod_headers.c>
+    # Basic Security Headers
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+    
+    # X-Frame-Options สำหรับป้องกัน clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # Content Security Policy สำหรับ SEO และ Security
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.google.com;"
+    
+    # CORS Headers สำหรับ API
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, DELETE, PUT"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    
+    # Preload Headers สำหรับ Performance
+    Header always set Link "</images/logo.png>; rel=preload; as=image, </images/hero-bg.jpg>; rel=preload; as=image"
+</IfModule>
+
+# ========================================
+# GZIP COMPRESSION - Performance SEO
+# ========================================
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/xml
     AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
     AddOutputFilterByType DEFLATE application/xml
     AddOutputFilterByType DEFLATE application/xhtml+xml
     AddOutputFilterByType DEFLATE application/rss+xml
     AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
-    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/ld+json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    
+    # Compress fonts
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+    AddOutputFilterByType DEFLATE application/font-woff
+    AddOutputFilterByType DEFLATE application/font-woff2
 </IfModule>
 
-# Cache Control สำหรับ assets
+# ========================================
+# CACHE CONTROL - Performance SEO
+# ========================================
 <IfModule mod_expires.c>
     ExpiresActive on
+    
+    # HTML files - ไม่ cache เพื่อให้ได้ content ใหม่
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # CSS และ JavaScript - cache นาน
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType text/javascript "access plus 1 year"
+    
+    # รูปภาพ - cache นาน
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # Fonts - cache นาน
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    
+    # Documents
+    ExpiresByType application/json "access plus 1 hour"
+    ExpiresByType application/xml "access plus 1 hour"
+    ExpiresByType text/xml "access plus 1 hour"
+    
+    # Manifest
+    ExpiresByType application/manifest+json "access plus 1 week"
 </IfModule>
 
-# Rewrite rules สำหรับ SPA (Single Page Application)
+# ========================================
+# URL REWRITING - SPA และ SEO-Friendly URLs
+# ========================================
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Handle static assets
+    # Force HTTPS (เพื่อ SEO)
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Remove trailing slash (เพื่อ SEO - หลีกเลี่ยง duplicate content)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [R=301,L]
+    
+    # Handle static files
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    
+    # API Routes - อย่า redirect ไป index.html
+    RewriteRule ^api/ - [L,QSA]
+    
+    # Handle SPA routes - ส่งไป index.html สำหรับ React Router
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/api/
+    RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|pdf|txt|webmanifest)$ [NC]
+    RewriteRule . /index.html [L,QSA]
     
-    # Redirect all other requests to index.html
-    RewriteRule . /index.html [L]
+    # SEO-friendly redirects สำหรับ legacy URLs
+    # Redirect /krabi/four-islands -> /tours/krabi/four-islands-speedboat
+    RewriteRule ^krabi/four-islands/?$ /tours/krabi/four-islands-speedboat [R=301,L]
+    RewriteRule ^phuket/phi-phi/?$ /tours/phuket/phi-phi-speedboat [R=301,L]
+    RewriteRule ^phang-nga/james-bond/?$ /tours/phang-nga/james-bond-speedboat [R=301,L]
 </IfModule>
 
-# Security headers
-<IfModule mod_headers.c>
-    Header always set X-Content-Type-Options nosniff
-    Header always set X-Frame-Options DENY
-    Header always set X-XSS-Protection "1; mode=block"
-    Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-    
-    # CORS headers (ถ้าจำเป็น)
-    Header always set Access-Control-Allow-Origin "*"
-    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, DELETE, PUT"
-    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
-</IfModule>
-
-# ป้องกัน direct access ไปยัง config files
+# ========================================
+# FILE PROTECTION - Security
+# ========================================
+# ป้องกัน access ไปยัง sensitive files
 <Files ~ "^\.">
     Order allow,deny
     Deny from all
 </Files>
 
-<Files ~ "\.(env|config|log)$">
+<Files ~ "\.(env|log|config|bak|backup|sql|json)$">
     Order allow,deny
     Deny from all
 </Files>
+
+# อนุญาต manifest.json และ robots.txt
+<Files "manifest.json">
+    Order allow,deny
+    Allow from all
+</Files>
+
+<Files "robots.txt">
+    Order allow,deny
+    Allow from all
+</Files>
+
+<Files "sitemap.xml">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# ========================================
+# ERROR PAGES - SEO-friendly error pages
+# ========================================
+ErrorDocument 404 /index.html
+ErrorDocument 500 /index.html
+
+# ========================================
+# PERFORMANCE OPTIMIZATIONS
+# ========================================
+# Remove ETags (เพื่อ performance)
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
+
+# Limit file upload size
+LimitRequestBody 10485760
+
+# Disable server signature
+ServerSignature Off
+
+# ========================================
+# SEO SPECIFIC RULES
+# ========================================
+# ป้องกัน duplicate content
+<IfModule mod_rewrite.c>
+    # Force www or non-www (เลือกอันเดียว)
+    # RewriteCond %{HTTP_HOST} !^www\. [NC]
+    # RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    
+    # หรือ force non-www
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ========================================
+# ENABLE KEEP-ALIVE - Performance
+# ========================================
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
